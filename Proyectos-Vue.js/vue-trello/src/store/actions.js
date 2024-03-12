@@ -1,4 +1,4 @@
-import * as types from "./mutation-types";
+import * as types from "./mutations-types";
 import API from "@/api";
 
 export default {
@@ -7,10 +7,8 @@ export default {
     commit(types.FETCH_BOARDS_REQUEST);
 
     API.getBoardsByUser(user)
-      .then((snap) =>
-        commit(types.FETCH_BOARDS_SUCCESS, { boards: snap.val() })
-      )
-      .catch((error) => commit(types.FETCH_BOARDS_FAILURE, { error }));
+      .then(snap => commit(types.FETCH_BOARDS_SUCCESS, { boards: snap.val() }))
+      .catch(error => commit(types.FETCH_BOARDS_FAILURE, { error }));
   },
 
   // Fetch via AJAX the lists from a board
@@ -18,8 +16,8 @@ export default {
     commit(types.FETCH_LISTS_REQUEST);
 
     API.getListsFromBoard(board)
-      .then((snap) => commit(types.FETCH_LISTS_SUCCESS, { lists: snap.val() }))
-      .catch((error) => commit(types.FETCH_LISTS_FAILURE, { error }));
+      .then(snap => commit(types.FETCH_LISTS_SUCCESS, { lists: snap.val() }))
+      .catch(error => commit(types.FETCH_LISTS_FAILURE, { error }));
   },
 
   // Fetch via AJAX the tasks from a list
@@ -27,25 +25,25 @@ export default {
     commit(types.FETCH_TASKS_REQUEST);
 
     API.getTasksFromList(list)
-      .then((snap) => commit(types.FETCH_TASKS_SUCCESS, { tasks: snap.val() }))
-      .catch((error) => commit(types.FETCH_LISTS_FAILURE, { error }));
+      .then(snap => commit(types.FETCH_TASKS_SUCCESS, { tasks: snap.val() }))
+      .catch(error => commit(types.FETCH_LISTS_FAILURE, { error }));
   },
 
   // Add a new board via AJAX
   addBoard({ commit }, { name }) {
-    API.postBoard(name).then((board) => commit(types.ADD_BOARD, { board }));
+    API.postBoard(name).then(board => commit(types.ADD_BOARD, { board }));
   },
 
   // Add a new column/list to a board via AJAX
   addColumn({ commit }, { board, name }) {
-    API.postList(board, name).then((column) =>
+    API.postList(board, name).then(column =>
       commit(types.ADD_COLUMN, { column })
     );
   },
 
   // Add a new tasks to a list/column via AJAX
   addTask({ commit }, { list, title }) {
-    API.postTask(list, title).then((task) => commit(types.ADD_TASK, { task }));
+    API.postTask(list, title).then(task => commit(types.ADD_TASK, { task }));
   },
 
   // Delete a task from a list/AJAX via AJAX
@@ -58,5 +56,5 @@ export default {
     API.completedTask(task.id).then(() =>
       commit(types.MARK_AS_COMPLETED, { task })
     );
-  },
+  }
 };

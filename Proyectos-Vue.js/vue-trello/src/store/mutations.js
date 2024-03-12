@@ -1,5 +1,5 @@
 import Vue from "vue";
-import * as types from "./mutation-types";
+import * as types from "../../src/store/mutations-types";
 
 export default {
   // Fetch the boards created by user
@@ -70,13 +70,11 @@ export default {
 
   // Delete a task from a task list
   [types.DELETE_TASK](state, { taskId }) {
-    state.tasks = Object.values(state.tasks).filter(
-      (task) => task.id !== taskId
-    );
+    state.tasks = Object.values(state.tasks).filter(task => task.id !== taskId);
   },
 
   // Check a task as completed
   [types.MARK_AS_COMPLETED](state, { task }) {
     task.completed = !task.completed;
-  },
+  }
 };
